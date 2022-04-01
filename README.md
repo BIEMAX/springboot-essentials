@@ -61,3 +61,8 @@ To execute in localhost, run in terminal:
 mvn spring-boot:run
 ```
 
+To access the microservice, just run:
+
+```bash
+http://localhost:8080
+```
