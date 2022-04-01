@@ -64,5 +64,5 @@ mvn spring-boot:run
 To access the microservice, just run:
 
 ```bash
-http://localhost:8080
+http://localhost:8080/swagger-ui/index.html
 ```
