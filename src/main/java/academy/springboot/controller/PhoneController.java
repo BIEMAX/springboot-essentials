@@ -13,7 +13,7 @@ public class PhoneController {
 
     @PostMapping(path = "phone/")
     @ResponseStatus(HttpStatus.OK)
-    public  isHomePhone(@RequestBody String phoneNumber) {
-
+    public Boolean isHomePhone(@RequestBody String phoneNumber) {
+        return true;
     }
 }
