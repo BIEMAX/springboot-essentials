@@ -1,5 +1,6 @@
 package academy.springboot.controller;
 
+import academy.springboot.config.ApplicationConfig;
 import academy.springboot.domain.TemplateClass;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,19 @@ import java.util.List;
 @RequestMapping("/v1/template") //Path of this controller
 public class TemplateController {
 
+    private final ApplicationConfig applicationConfig;
+
     @GetMapping(path = "list") //sub-path
     @ResponseStatus(HttpStatus.OK)
     public List<TemplateClass> list() {
         return List.of(new TemplateClass("Julio"),
                         new TemplateClass("Roberta"),
                         new TemplateClass("Sergio"));
+    }
+
+    @GetMapping(path = "config")
+    @ResponseStatus(HttpStatus.OK)
+    public String getApplicationConfiguration() {
+        return applicationConfig.getApplicationPort();
     }
 }
