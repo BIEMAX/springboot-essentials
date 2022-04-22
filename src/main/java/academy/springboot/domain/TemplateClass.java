@@ -9,4 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class TemplateClass {
     private String name;
+    private String middleName;
+    private String lastName;
 }
