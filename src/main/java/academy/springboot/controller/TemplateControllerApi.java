@@ -17,7 +17,6 @@ import javax.validation.Valid;
 @RequestMapping("/v1/template") //Path of this controller
 public interface TemplateControllerApi {
 
-
     @ApiOperation(value = "Performs the registration of a new pix key for the client.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "Key created successfully."),
@@ -28,5 +27,4 @@ public interface TemplateControllerApi {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     TemplateResponse getTemplateClass(@Valid @RequestBody TemplateRequest templateRequest);
-
 }
