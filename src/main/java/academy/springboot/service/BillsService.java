@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Slf4j
 @NoArgsConstructor
@@ -45,6 +48,10 @@ public class BillsService {
             log.error(ex.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
+    }
+
+    public List<BillToPay> getBillsList(Optional<Integer> month, Optional<Integer> year, Optional<String> description) {
+        return (List<BillToPay>) billsRepository.findAll();
     }
 
 //    public BillResponse getBills(BillRequest billRequest) {
