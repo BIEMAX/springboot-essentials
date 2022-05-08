@@ -11,4 +11,4 @@ target
 *.ipr
 
 ### Files and folders
-src/main/resources/**
+src/main/resources/application-local.properties
