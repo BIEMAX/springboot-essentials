@@ -3,14 +3,12 @@ package academy.springboot.controller;
 import academy.springboot.request.TemplateRequest;
 import academy.springboot.response.TemplateResponse;
 
-//Necessary for swagger ui documentation
-import io.swagger.annotations.Api;
-import io.swagger.annotations.Example;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,7 +22,7 @@ import org.springframework.http.HttpStatus;
 
 import javax.validation.Valid;
 
-@Api(tags = "Template tag") //Swagger tag
+@Tag(name = "Template tag", description = "Template to use as template")
 @RestController
 @RequestMapping("/v1/template") //Path of this controller
 public interface TemplateControllerApi {
