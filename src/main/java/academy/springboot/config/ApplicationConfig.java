@@ -1,19 +1,17 @@
 package academy.springboot.config;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
-@Service
-@Repository
+@Getter
+@AllArgsConstructor
 public class ApplicationConfig {
 
     @Value("${server.port}")
-    private String applicationPort;
+    private final String applicationPort;
 
-    public String getApplicationPort() {
-        return applicationPort;
-    }
+    @Value("${api-secret-key}")
+    private final String secretKey;
+
 }
