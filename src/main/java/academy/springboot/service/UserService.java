@@ -4,7 +4,7 @@ import academy.springboot.domain.User;
 import academy.springboot.repository.UserRepository;
 import academy.springboot.request.UserRequest;
 import academy.springboot.response.UserResponse;
-import lombok.AllArgsConstructor;
+import academy.springboot.utils.Cryptography;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,26 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 @Slf4j
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Cryptography cryptography;
 
     public UserResponse createUser(UserRequest userRequest) {
         try {
+            String passCrypto = cryptography.Encrypt(userRequest.getPassword());
             User user =
                     User.builder()
                             .user(userRequest.getUser())
-                            .password(userRequest.getPassword())
+                            .password(passCrypto)
                             .email(userRequest.getEmail())
                             .loggedIn(Boolean.FALSE)
                             .active(Boolean.TRUE)
                             .build();
 
             userRepository.save(user);
-
             log.info("User created");
 
             return UserResponse.builder()
