@@ -2,6 +2,7 @@ package academy.springboot.service;
 
 import academy.springboot.domain.User;
 import academy.springboot.repository.UserRepository;
+import academy.springboot.request.UserLoginRequest;
 import academy.springboot.request.UserRequest;
 import academy.springboot.response.UserResponse;
 import academy.springboot.utils.Cryptography;
@@ -45,7 +46,35 @@ public class UserService {
                     .build();
         }
         catch (Exception ex) {
-            log.error(ex.getMessage());
+            log.warn(ex.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
+    }
+
+    public UserResponse getUser(UserLoginRequest userLoginRequest) {
+        try {
+            User loggedUser = userRepository.findUserByNameAndPassword(userLoginRequest.getUser(), userLoginRequest.getPassword());
+            log.info("The user is no longer active");
+            if(!loggedUser.active) {
+                //HttpStatus.PARTIAL_CONTENT
+                return UserResponse.builder()
+                        .message("This user is no longer active")
+                        .information("Success")
+                        .active(Boolean.FALSE)
+                        .loggedIn(Boolean.FALSE)
+                        .build();
+            }
+            else {
+                return UserResponse.builder()
+                        .message("Successful to get the user")
+                        .information("Success")
+                        .active(Boolean.TRUE)
+                        .loggedIn(Boolean.FALSE)
+                        .build();
+            }
+        }
+        catch (Exception ex) {
+            log.warn(ex.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
     }

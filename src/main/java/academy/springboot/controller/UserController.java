@@ -1,6 +1,6 @@
 package academy.springboot.controller;
 
-import academy.springboot.config.ApplicationConfig;
+import academy.springboot.request.UserLoginRequest;
 import academy.springboot.request.UserRequest;
 import academy.springboot.response.UserResponse;
 import academy.springboot.service.UserService;
@@ -16,11 +16,15 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserController implements UserControllerApi {
 
-    private final ApplicationConfig applicationConfig;
     private final UserService userService;
 
     @Override
     public UserResponse createUser(@Valid @RequestBody UserRequest userRequest) {
         return userService.createUser(userRequest);
+    }
+
+    @Override
+    public UserResponse getUser(@Valid @RequestBody UserLoginRequest userLoginRequest) {
+        return userService.getUser(userLoginRequest);
     }
 }

@@ -1,5 +1,6 @@
 package academy.springboot.controller;
 
+import academy.springboot.request.UserLoginRequest;
 import academy.springboot.request.UserRequest;
 import academy.springboot.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,4 +36,24 @@ public interface UserControllerApi {
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     UserResponse createUser(@Valid @RequestBody UserRequest userRequest);
+
+
+    @Operation(summary = "Get an existing user", description = "Performs the validation if an user exist.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "User get successfully.",
+                    content = @Content(
+                            mediaType = "application/json", schema = @Schema(
+                            type = "SampleHttpResponseDto",
+                            example = "{\"status\":\"OK\",\"message\":\"sample OK answer\"}")
+                    )
+            ),
+            @ApiResponse(responseCode = "401", description = "Invalid access token."),
+            @ApiResponse(responseCode = "404", description = "Customer not found."),
+            @ApiResponse(responseCode = "503", description = "Unavailable service.")
+    })
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    UserResponse getUser(@Valid @RequestBody UserLoginRequest userLoginRequest);
 }
