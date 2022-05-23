@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @NoArgsConstructor
@@ -54,8 +56,8 @@ public class UserService {
 
     public UserResponse getUser(UserLoginRequest userLoginRequest) {
         try {
-            User loggedUser = userRepository.findUserByNameAndPassword(userLoginRequest.getUser(), userLoginRequest.getPassword());
-            if (!loggedUser.active) {
+            List<User> loggedUser = userRepository.findByUserAndPassword(userLoginRequest.getUser(), userLoginRequest.getPassword());
+            if (!loggedUser.get(0).active) {
                 throw new UserInactiveException();
             }
             else {
