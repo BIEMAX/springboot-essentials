@@ -53,7 +53,7 @@ public interface UserControllerApi {
             @ApiResponse(responseCode = "404", description = "Customer not found."),
             @ApiResponse(responseCode = "503", description = "Unavailable service.")
     })
-    @GetMapping("/")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
     UserResponse getUser(@Valid @RequestBody UserLoginRequest userLoginRequest);
 }
