@@ -2,6 +2,7 @@ package academy.springboot.service;
 
 import academy.springboot.domain.User;
 import academy.springboot.exception.UserInactiveException;
+import academy.springboot.exception.UserNotFound;
 import academy.springboot.repository.UserRepository;
 import academy.springboot.request.UserLoginRequest;
 import academy.springboot.request.UserRequest;
@@ -56,10 +57,10 @@ public class UserService {
 
     public UserResponse getUser(UserLoginRequest userLoginRequest) {
         try {
-            List<User> loggedUser = userRepository.findByUserAndPassword(userLoginRequest.getUser(), userLoginRequest.getPassword());
-            if (!loggedUser.get(0).active) {
-                throw new UserInactiveException();
-            }
+            String passEncrypt = cryptography.Encrypt(userLoginRequest.getPassword());
+            List<User> loggedUser = userRepository.findByUserAndPassword(userLoginRequest.getUser(), passEncrypt);
+            if (loggedUser.isEmpty()) throw new UserNotFound();
+            else if (!loggedUser.get(0).active) throw new UserInactiveException();
             else {
                 return UserResponse.builder()
                         .message("Successful to get the user")

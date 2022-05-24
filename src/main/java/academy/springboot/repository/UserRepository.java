@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
 
-    @Query("{ 'user': ?0, 'password': ?1 }")
+    //@Query("{ 'user': ?0, 'password': ?1 }")
     List<User> findByUserAndPassword(String user, String password);
 }
